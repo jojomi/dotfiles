@@ -1,0 +1,6 @@
+# http://xmodulo.com/useful-bash-aliases-functions.html
+alias listen="lsof -P -i -n"
+alias busy='cat /dev/urandom | hexdump -C | grep "ca fe"'
+alias incognito='export HISTFILE=/dev/null'
+
+online() { ping -i 0.2 -c 5 ${1:-8.8.8.8} ; }

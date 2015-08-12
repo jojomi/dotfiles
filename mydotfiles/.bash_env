@@ -1,0 +1,9 @@
+# set default editor
+export EDITOR=vi
+which nano &>/dev/null
+[ $? -eq 0 ] && export EDITOR=nano
+
+
+# set GOPATH if go is installed
+which go &>/dev/null
+[ $? -eq 0 ] && export GOPATH=~/dev/go

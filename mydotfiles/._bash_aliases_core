@@ -1,0 +1,66 @@
+# allow aliases with sudo (and keep the environment)
+alias sudo='sudo -E '
+# repeat last command using sudo
+alias please='eval "sudo $(fc -ln -1)"'
+
+
+# file handling
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+function up {
+[ "${1/[^0-9]/}" == "$1" ] && {
+        local ups=""
+        for i in $(seq 1 $1)
+        do
+                ups=$ups"../"
+        done
+        cd $ups
+        } || echo "usage: up INTEGER"
+}
+alias ax="chmod a+x"
+mcd() { mkdir -p "$1"; cd "$1";}
+backup() { cp "$1"{,.bak};}
+alias fn='find . -name'
+# unpack, see below
+
+# ls
+ll() { ls -lah "$@" | more ; }
+
+# colors
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+
+# sensible defaults
+alias du='du -h'
+alias df='df -h'
+
+# get public IP address
+# alternative address: icanhazip.com
+alias ip="curl ifconfig.co"
+
+
+
+
+
+extract()
+{
+  if [ -f $1 ] ; then
+  case $1 in
+   *.tar.bz2)   tar xvjf $1     ;;
+   *.tar.gz)    tar xvzf $1     ;;
+   *.bz2)       bunzip2 $1 ;;
+   *.rar) unrar x $1 ;;
+   *.gz) gunzip $1 ;;
+   *.tar) tar xvf $1 ;;
+   *.tbz2) tar xvjf $1 ;;
+   *.tgz) tar xvzf $1 ;;
+   *.zip) unzip $1 ;;
+   *.Z) uncompress $1 ;;
+   *.7z) 7z x $1 ;;
+   *) echo "'$1' cannot be extracted via >extract<" ;;
+      esac
+   else
+      echo "'$1' is not a valid file"
+   fi
+}

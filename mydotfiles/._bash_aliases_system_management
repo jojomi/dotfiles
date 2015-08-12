@@ -1,0 +1,33 @@
+# source lsb-release to be able to tell Linux distributions apart
+# http://stackoverflow.com/a/394235
+# http://unix.stackexchange.com/a/6348
+if [[ $OSTYPE == linux-gnu ]]; then
+  . /etc/lsb-release
+fi
+
+# system-dependent!
+if [[ $OSTYPE == linux-gnu ]]; then
+  if [[ $DISTRIB_ID == Debian ]]; then
+    get () {
+      if [[ $EUID -ne 0 ]]; then
+        apt-get install ${1}
+      else
+        sudo apt-get install ${1}
+      fi
+    }
+    alias getnow='sudo apt-get --yes install'
+    alias update=''
+  elif [[ $DISTRIB_ID == ManjaroLinux ]]; then
+    get() {
+      if [[ $EUID -ne 0 ]]; then
+        pacman -S ${1}
+      else
+        sudo pacman -S ${1}
+      fi
+    }
+  fi
+fi
+
+
+# maintenance
+#brew clean
